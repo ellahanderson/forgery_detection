@@ -3,11 +3,7 @@ Testing model using painting patches instead of full paintings.
 Used RGB colorway - most accurate for full painting.
 Tried on two models - overfitting and underfitting since couldn't optimize to be perfectly fitting.
 
-Acc: 0.5520, loss: 0.6878
-Val_acc: 0.8200, val_loss: 0.6264 using underfitting model
-
-Acc: 0.9885, loss: 0.0776
-Val_acc: 0.8320, val_loss: 5.3757 using overfitting model.
+Code has been edited/lines redacted from original project. 
 """
 import tensorflow as tf
 from tensorflow import keras
@@ -28,7 +24,8 @@ from keras import Sequential
 
 import patched
 
-# set base directory for images - right now only looking at paintings
+# set base directory for images - right now only looking at preprocessed 
+# images for brushstroke detection
 base_dir = 'patched'
 try:
    if not os.path.exists(os.path.dirname(base_dir)):
@@ -123,43 +120,9 @@ model.add(layers.Conv2D(128, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
 model.add(layers.Conv2D(128, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
-# model.add(layers.Conv2D(128, (3, 3), activation='relu'))
-# model.add(layers.MaxPooling2D((2, 2)))
-# model.add(layers.Conv2D(128, (3, 3), activation='relu'))
-# model.add(layers.MaxPooling2D((2, 2)))
-# model.add(layers.Conv2D(128, (3, 3), activation='relu'))
 model.add(layers.Flatten())
 model.add(layers.Dense(512, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid'))
-
-# Underfitting model: 1 million params
-
-# model = Sequential()
-# model.add(layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer ='he_normal',
-#                         input_shape=(128, 128, 3)))
-# model.add(layers.MaxPooling2D(pool_size=(2, 2)))
-# model.add(layers.Activation('relu'))
-# model.add(layers.Dropout(0.25))
-# model.add(layers.Convolution2D(64, (3, 3), padding='same'))
-# model.add(layers.Activation('relu'))
-# model.add(layers.Dropout(0.25))
-# model.add(layers.Convolution2D(128, (3, 3), padding='same'))
-# model.add(layers.Activation('relu'))
-# model.add(layers.Dropout(0.25))
-# model.add(layers.Convolution2D(32, (3, 3), padding='same'))
-# model.add(layers.Activation('relu'))
-# model.add(layers.MaxPooling2D(pool_size=(2, 2), strides=2))
-# model.add(layers.Flatten())
-# model.add(layers.Dense(32, 
-#               kernel_regularizer=l2(0.01),      
-#               bias_regularizer=l2(0.01)))
-# model.add(layers.Activation('relu'))
-# model.add(layers.Dropout(0.25))
-# model.add(layers.Dense(32, 
-#               kernel_regularizer=l2(0.01),      
-#               bias_regularizer=l2(0.01)))
-# model.add(layers.Activation('relu'))
-# model.add(layers.Dense(1, activation='sigmoid'))
 
 
 model.summary()
